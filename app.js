@@ -7,7 +7,7 @@ Papa.parse("combined_summary.csv", {
     var headers = Object.keys(data[0]);
     var headerRow = table.insertRow(0);
 
-    // headers.splice(headers.indexOf("Date"), 1);
+    headers.splice(headers.indexOf("Date"), 1);
 
     for (var i = 0; i < headers.length; i++) {
       var headerCell = headerRow.insertCell(i);
