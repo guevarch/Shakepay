@@ -3,51 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <title>CSV to HTML Table</title>
-    <style>
-      /* Styles for the input container */
-      .input-container {
-        display: inline-block;
-        width: 33.33%;
-        vertical-align: top;
-      }
-      
-      /* Styles for the input elements */
-      label, input[type="date"], input[type="text"], button {
-        display: block;
-        margin-bottom: 10px;
-      }
-
-      /* Styles for the table container */
-      .table-container {
-        display: inline-block;
-        width: 66.67%; /* Take up two-thirds of the page width */
-      }
-
-      /* Styles for the table */
-      table {
-        border-collapse: collapse;
-        width: 50%;
-        font-family: Arial, sans-serif;
-        font-size: 12px; /* Decrease font size */
-      }
-
-      th, td {
-        text-align: left;
-        padding: 4px; /* Decrease cell padding */
-        border-bottom: 1px solid #ddd;
-        color: #333;
-      }
-
-      th {
-        background-color: #4CAF50;
-        color: white;
-      }
-
-      tr:nth-child(even) {
-        background-color: #f2f2f2;
-      }
-    </style>
-
+<head>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
   </head>
 
   <body>
@@ -63,14 +21,21 @@
 
     <!-- Wrap the table inside a div container -->
     <div class="table-container">
-      <table id="csv-data"></table>
+      <table id="csv-data"></table> 
     </div>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 
-    <script src="app.js"></script>
+    <!-- <canvas id="myPieChart"></canvas> -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js library -->
+    <script src="app.js"></script> <!-- Add your app.js script -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    
   </body>
 </html>
+
 
 
 

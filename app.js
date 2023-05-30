@@ -1,4 +1,4 @@
-Papa.parse("combined_summary.csv", {
+Papa.parse("resources/combined_summary.csv", {
   download: true,
   header: true,
   complete: function(results) {
@@ -89,5 +89,24 @@ function sortTableByDate(tableId, columnIndex) {
   }
 }
 
+// Get the context of the canvas element we want to select which is myPieChart
+var ctx = document.getElementById('myPieChart').getContext('2d');
 
+// Create the data array and options for the pie chart
+var data = {
+  labels: ['Label 1', 'Label 2', 'Label 3'], // Replace with appropriate labels
+  datasets: [{
+    label: 'My First Dataset',
+    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'], // Replace with appropriate colors
+    borderColor: '#fff',
+    data: [10, 20, 30] // Replace with appropriate data values
+  }]
+};
+
+// Create the Pie chart with the data
+var myPieChart = new Chart(ctx, {
+  type: 'pie',
+  data: data,
+  options: {}
+});
 
