@@ -9,30 +9,32 @@
   </head>
 
   <body>
-    <!-- Wrap the input elements inside a div container -->
-    <div class="input-container">
-      <label for="start-date">Start Date:</label>
-      <input type="date" id="start-date">
-      <label for="end-date">End Date:</label>
-      <input type="date" id="end-date">
-      <button id="filter-button">Filter</button>
-      <input type="text" id="date-filter">
+    <div class="container">
+      <div class="row">
+        <div class="input-container">
+          <label for="start-date">Start Date:</label>
+          <input type="date" id="start-date">
+          <label for="end-date">End Date:</label>
+          <input type="date" id="end-date">
+          <button id="filter-button">Filter</button>
+          <input type="text" id="date-filter">
+        </div>
+        <div class="table-container">
+          <table id="csv-data"></table> 
+        </div>
     </div>
 
-    <!-- Wrap the table inside a div container -->
-    <div class="table-container">
-      <table id="csv-data"></table> 
-    </div>
 
-    <!-- <canvas id="myPieChart"></canvas> -->
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js library -->
     <script src="app.js"></script> <!-- Add your app.js script -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </body>
 </html>
 

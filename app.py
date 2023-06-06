@@ -71,4 +71,4 @@ avgspend = "${:.2f}".format(intsumps/number_of_days)
 summary_spending_df = summary_spending_df.sort_values(by=['Date'])
 # combined_summary = combined_summary.sort_values(by=['Date']).drop(columns = ['Date'])
 combined_summary = summary_spending_df[~summary_spending_df["Source / Destination"].isin(["MASSAGE ADDICT","guevarch@gmail.com","FREEDOM MOBILE", "yansunique@yahoo.ca", "CITY CENTRE BAPTIST", "GOOGLE YouTubePremium"])]
-combined_summary.to_csv('combined_summary.csv')
+combined_summary.to_csv('resources/combined_summary.csv')

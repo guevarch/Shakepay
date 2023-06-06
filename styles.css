@@ -1,24 +1,3 @@
-Styles for the input container
-.input-container {
-    display: inline-block;
-    width: 33.33%;
-    vertical-align: top;
-  }
-  
-  /* Styles for the input elements */
-  label,
-  input[type="date"],
-  input[type="text"],
-  button {
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  /* Styles for the table container */
-  .table-container {
-    display: inline-block;
-    width: 66.67%; /* Take up two-thirds of the page width */
-  }
   
   /* Styles for the table */
   table {
@@ -43,10 +22,5 @@ Styles for the input container
   
   tr:nth-child(even) {
     background-color: #f2f2f2;
-  }
-  
-  #myPieChart {
-    width: 30px;
-    height: 30px;
   }
   
