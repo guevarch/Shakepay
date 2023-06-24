@@ -1,112 +1,87 @@
-Papa.parse("resources/combined_summary.csv", {
-  download: true,
-  header: true,
-  complete: function(results) {
-    var data = results.data;
-    var table = document.getElementById("csv-data");
-    var headers = Object.keys(data[0]);
-    var headerRow = table.insertRow(0);
+sortDateColumnAsc: document.addEventListener("DOMContentLoaded", function() {
+  var generateChartBtn = document.getElementById("generate-chart-btn");
+  generateChartBtn.addEventListener("click", function() {
+    var startDate = document.getElementById("start-date").value;
+    var endDate = document.getElementById("end-date").value;
 
-    headers.splice(headers.indexOf("Date"), 1);
+    Papa.parse("resources/combined_summary.csv", {
+      download: true,
+      header: true,
+      complete: function(results) {
+        var data = results.data;
 
-    for (var i = 0; i < headers.length; i++) {
-      var headerCell = headerRow.insertCell(i);
-      headerCell.innerHTML = headers[i];
-      
-    }
+        // Filter data based on date range
+        var filteredData = data.filter(function(item) {
+          var rowDate = new Date(item.Date);
+          return rowDate >= new Date(startDate) && rowDate <= new Date(endDate);
+        });
 
-    // Sort table by date in descending order
-    sortTableByDate("csv-data", headers.indexOf("Date"));
+        // Sort data by date in ascending order
+        filteredData.sort(function(a, b) {
+          var dateA = new Date(a.Date);
+          var dateB = new Date(b.Date);
+          return dateA - dateB;
+        });
 
-    // Store data as a variable so we can re-render it later
-    var allRows = [];
-    for (var i = 0; i < data.length; i++) {
-      var tableRow = table.insertRow(i + 1);
-      allRows.push(tableRow); // Store reference to row so we can re-render it later
-      for (var j = 0; j < headers.length; j++) {
-        var tableCell = tableRow.insertCell(j);
-        tableCell.innerHTML = data[i][headers[j]];
-      }
-    }
+        // Prepare data for the chart
+        var amounts = filteredData.map(function(item) {
+          return item["Amount Debited"];
+        });
 
-    // Listen for changes to date filter input field
-    var dateFilterInput = document.getElementById("date-filter");
-    dateFilterInput.addEventListener("change", function() {
-      var dateRange = dateFilterInput.value.split(" - ");
-      var startDate = new Date(dateRange[0]);
-      var endDate = new Date(dateRange[1]);
-      // Loop through all rows and hide/show based on date range
-      for (var i = 0; i < allRows.length; i++) {
-        var rowData = data[i];
-        var rowDate = new Date(rowData.Date);
-        if (rowDate >= startDate && rowDate <= endDate) {
-          allRows[i].style.display = ""; // Show row
-        } else {
-          allRows[i].style.display = "none"; // Hide row
+        var sourcesDestinations = filteredData.map(function(item) {
+          return item["Source / Destination"];
+        });
+
+        // Generate pie chart
+        var ctx = document.getElementById("pieChart").getContext("2d");
+        new Chart(ctx, {
+          type: "pie",
+          data: {
+            labels: sourcesDestinations,
+            datasets: [{
+              label: "Amount Debited",
+              data: amounts,
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.6)",
+                "rgba(54, 162, 235, 0.6)",
+                "rgba(255, 206, 86, 0.6)",
+                "rgba(75, 192, 192, 0.6)",
+                "rgba(153, 102, 255, 0.6)"
+                // Add more colors as needed
+              ],
+            }],
+          },
+        });
+
+        // Populate table with filtered and sorted data
+        var table = document.getElementById("data-table");
+        table.innerHTML = ""; // Clear previous data
+
+        // Create table headers
+        var headers = Object.keys(filteredData[0]);
+        var headerRow = table.insertRow(0);
+        for (var i = 0; i < headers.length; i++) {
+          var headerCell = document.createElement("th");
+          headerCell.textContent = headers[i];
+          headerRow.appendChild(headerCell);
+        }
+
+        // Create table rows
+        for (var i = 0; i < filteredData.length; i++) {
+          var rowData = filteredData[i];
+          var row = table.insertRow(i + 1);
+          for (var j = 0; j < headers.length; j++) {
+            var cell = row.insertCell(j);
+            cell.textContent = rowData[headers[j]];
+          }
         }
       }
-
-      // Sort table by date in descending order after applying the filter
-      sortTableByDate("csv-data", headers.indexOf("Date"));
     });
-
-    // Listen for click on filter button
-    var filterButton = document.getElementById("filter-button");
-    filterButton.addEventListener("click", function() {
-      var startDate = new Date(document.getElementById("start-date").value);
-      var endDate = new Date(document.getElementById("end-date").value);
-      // Loop through all rows and hide/show based on date range
-      for (var i = 0; i < allRows.length; i++) {
-        var rowData = data[i];
-        var rowDate = new Date(rowData.Date);
-        if (rowDate >= startDate && rowDate <= endDate) {
-          allRows[i].style.display = ""; // Show row
-        } else {
-          allRows[i].style.display = "none"; // Hide row
-        }
-      }
-
-      // Sort table by date in descending order after applying the filter
-      sortTableByDate("csv-data", headers.indexOf("Date"));
-    });
-  }
-});
-
-function sortTableByDate(tableId, columnIndex) {
-  var table = document.getElementById(tableId);
-  var rows = Array.from(table.rows);
-
-  // Sort rows by date in descending order
-  rows.sort(function(a, b) {
-    var aDate = new Date(a.cells[columnIndex].innerText);
-    var bDate = new Date(b.cells[columnIndex].innerText);
-    return aDate - bDate;
   });
-
-  // Re-insert sorted rows back into table
-  for (var i = 0; i < rows.length; i++) {
-    table.appendChild(rows[i]);
-  }
-}
-
-// Get the context of the canvas element we want to select which is myPieChart
-var ctx = document.getElementById('myPieChart').getContext('2d');
-
-// Create the data array and options for the pie chart
-var data = {
-  labels: ['Label 1', 'Label 2', 'Label 3'], // Replace with appropriate labels
-  datasets: [{
-    label: 'My First Dataset',
-    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'], // Replace with appropriate colors
-    borderColor: '#fff',
-    data: [10, 20, 30] // Replace with appropriate data values
-  }]
-};
-
-// Create the Pie chart with the data
-var myPieChart = new Chart(ctx, {
-  type: 'pie',
-  data: data,
-  options: {}
 });
 
+
+
+
+  
+  

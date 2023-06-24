@@ -1,53 +1,51 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>CSV to HTML Table</title>
 <head>
-  <link rel="stylesheet" type="text/css" href="styles.css">
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    
+  <title>Pie Chart Example</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0"></script>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js"></script>
+  <style>
+    .container {
+      display: flex;
+    }
+
+    .column {
+      flex: 50%;
+      padding: 10px;
+    }
+
+    .chart-container {
+      height: 400px;
+    }
+  </style>
 </head>
+<body>
+  <h1>Pie Chart Example</h1>
 
+  <div class="container">
+    <div class="column">
+      <label for="start-date">Start Date:</label>
+      <input type="date" id="start-date">
+      <br>
+      <label for="end-date">End Date:</label>
+      <input type="date" id="end-date">
+      <br>
+      <button id="generate-chart-btn">Generate Chart</button>
 
-  <body>
-    <div class="container">
-        <div class="row">
-          <div class="col-sm-6">
-            <label for="start-date">Start Date:</label>
-            <input type="date" id="start-date">
-            <label for="end-date">End Date:</label>
-            <input type="date" id="end-date">
-            <button id="filter-button">Filter</button>
-            <input type="text" id="date-filter">
-           <div class="table-container">
-          <table id="csv-data"></table> 
-        </div>
-        <div class="row">
-        </div>
-      </div>
-        <div class="chart-container">
-          <div class="chart-container">
-            <canvas id="pie-chart"></canvas>
-          </div>
-        </div>
+      <h2>Filtered Data</h2>
+      <table id="data-table"></table>
     </div>
+    <div class="column">
+      <div class="chart-container">
+        <canvas id="pieChart"></canvas>
+      </div>
+    </div>
+  </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js library -->
-    <script src="app.js"></script> <!-- Add your app.js script -->
-    <script src="chart.js"></script> <!-- Add your app.js script -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-
-  </body>
+</body>
 </html>
-
-
 
 
 
