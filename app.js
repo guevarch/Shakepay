@@ -32,14 +32,32 @@ sortDateColumnAsc: document.addEventListener("DOMContentLoaded", function() {
           return item["Source / Destination"];
         });
 
+        // Group data by Source / Destination and calculate the sum
+        var groupedData = {};
+        for (var i = 0; i < filteredData.length; i++) {
+          var item = filteredData[i];
+          var key = item["Source / Destination"];
+          var amount = parseFloat(item["Amount Debited"]);
+
+          if (groupedData[key]) {
+            groupedData[key] += amount;
+          } else {
+            groupedData[key] = amount;
+          }
+        }
+
+        // Prepare data for the chart
+        var labels = Object.keys(groupedData);
+        var amounts = Object.values(groupedData);
+
         // Generate pie chart
         var ctx = document.getElementById("pieChart").getContext("2d");
         new Chart(ctx, {
           type: "pie",
           data: {
-            labels: sourcesDestinations,
+            labels: labels,
             datasets: [{
-              label: "Amount Debited",
+              label: "Total Amount Debited",
               data: amounts,
               backgroundColor: [
                 "rgba(255, 99, 132, 0.6)",
@@ -52,6 +70,7 @@ sortDateColumnAsc: document.addEventListener("DOMContentLoaded", function() {
             }],
           },
         });
+
 
         // Populate table with filtered and sorted data
         var table = document.getElementById("data-table");
