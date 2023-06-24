@@ -22,4 +22,3 @@ summary_spending_df=summary_spending_df.dropna()
 summary_spending_df = summary_spending_df[~summary_spending_df["Source / Destination"].isin(["MASSAGE ADDICT","guevarch@gmail.com","FREEDOM MOBILE", "yansunique@yahoo.ca", "CITY CENTRE BAPTIST", "GOOGLE YouTubePremium"])]
 summary_spending_df = summary_spending_df.set_index('Amount Debited')
 summary_spending_df.to_csv('resources/combined_summary.csv')
-summary_spending_df.tail(15)
