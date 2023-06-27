@@ -95,9 +95,13 @@ sortDateColumnAsc: document.addEventListener("DOMContentLoaded", function() {
           }
         }
       }
+      
     });
   });
 });
+
+
+
 
 
 
