@@ -15,10 +15,14 @@ for i in range(1, 31):
 
 shake_data_df = pd.concat(df_list, ignore_index=True)
 shake_data_df['Date'] = pd.to_datetime(shake_data_df['Date']).dt.strftime('%Y-%m-%d')
+df1 = pd.read_csv('resources/purchase_type.csv')
 #Summary Spending
 summary_spending_df = shake_data_df[shake_data_df['Amount Debited'] > 1]
 summary_spending_df = summary_spending_df[['Amount Debited', 'Source / Destination','Date']]
 summary_spending_df=summary_spending_df.dropna()
+summary_spending_df=summary_spending_df.reset_index()
+summary_spending_df = df1.merge(summary_spending_df, on='Source / Destination')
 summary_spending_df = summary_spending_df[~summary_spending_df["Source / Destination"].isin(["MASSAGE ADDICT","guevarch@gmail.com","FREEDOM MOBILE", "yansunique@yahoo.ca", "CITY CENTRE BAPTIST", "GOOGLE YouTubePremium"])]
 summary_spending_df = summary_spending_df.set_index('Amount Debited')
 summary_spending_df.to_csv('resources/combined_summary.csv')
+summary_spending_df
