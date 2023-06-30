@@ -1,6 +1,7 @@
-sortDateColumnAsc: document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function() {
   var generateChartBtn = document.getElementById("generate-chart-btn");
-  generateChartBtn.addEventListener("click", function() {
+
+  function generateChart() {
     var startDate = document.getElementById("start-date").value;
     var endDate = document.getElementById("end-date").value;
 
@@ -46,59 +47,52 @@ sortDateColumnAsc: document.addEventListener("DOMContentLoaded", function() {
           }
         }
 
-        // Prepare data for the chart
-        var labels = Object.keys(groupedData);
-        var amounts = Object.values(groupedData);
+        // Prepare data for the pie chart
+        var sortedData = Object.entries(groupedData).sort(function(a, b) {
+          return b[1] - a[1];
+        });
 
-        // Generate pie chart
-        var ctx = document.getElementById("pieChart").getContext("2d");
+        var top10Data = sortedData.slice(0, 10);
+
+        var labels = top10Data.map(function(entry) {
+          return entry[0];
+        });
+
+        var amounts = top10Data.map(function(entry) {
+          return entry[1];
+        });
+
+        // Generate pie chart for top 10 expenses
+        var ctx = document.getElementById("secondPieChart").getContext("2d");
         new Chart(ctx, {
           type: "pie",
           data: {
             labels: labels,
             datasets: [{
-              label: "Total Amount Debited",
+              label: "Top 10 Expenses",
               data: amounts,
               backgroundColor: [
                 "rgba(255, 99, 132, 0.6)",
                 "rgba(54, 162, 235, 0.6)",
                 "rgba(255, 206, 86, 0.6)",
                 "rgba(75, 192, 192, 0.6)",
-                "rgba(153, 102, 255, 0.6)"
+                "rgba(153, 102, 255, 0.6)",
                 // Add more colors as needed
               ],
             }],
           },
         });
 
+        
 
-        // Populate table with filtered and sorted data
-        var table = document.getElementById("data-table");
-        table.innerHTML = ""; // Clear previous data
-
-        // Create table headers
-        var headers = Object.keys(filteredData[0]);
-        var headerRow = table.insertRow(0);
-        for (var i = 0; i < headers.length; i++) {
-          var headerCell = document.createElement("th");
-          headerCell.textContent = headers[i];
-          headerRow.appendChild(headerCell);
-        }
-
-        // Create table rows
-        for (var i = 0; i < filteredData.length; i++) {
-          var rowData = filteredData[i];
-          var row = table.insertRow(i + 1);
-          for (var j = 0; j < headers.length; j++) {
-            var cell = row.insertCell(j);
-            cell.textContent = rowData[headers[j]];
-          }
-        }
+        generateChartBtn.removeEventListener("click", generateChart);
       }
-      
     });
-  });
+  }
+
+  generateChartBtn.addEventListener("click", generateChart);
 });
+
 
 
 

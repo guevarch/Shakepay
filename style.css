@@ -67,7 +67,7 @@ button {
 
 #data-table th,
 #data-table td {
-  padding: 8px;
+  padding: px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
@@ -82,10 +82,11 @@ button {
 
 /* Chart Styles */
 .chart-container {
-  width: 100%;
+  width: 80%;
   height: 600px;
-  border: 1px solid #ddd;
-  border-radius: 3px;
+  border: 2px solid #ddd;
+  border-radius: 1px;
+  margin-top: 25px;
 }
 
   
