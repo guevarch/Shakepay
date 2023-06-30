@@ -1,4 +1,4 @@
-/* Table Styles */
+/* table Styles */
 #data-table {
   border-collapse: collapse;
   width: 100%;
@@ -9,14 +9,6 @@
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid #ddd;
-}
-
-#data-table th {
-  background-color: #5db423;
-}
-
-#data-table tr:hover {
-  background-color: #6cbea8;
 }
 
 /* Container Styles */
@@ -59,36 +51,49 @@ button {
   cursor: pointer;
 }
 
-/* Table Styles */
+/* Filter table */
 #data-table {
   border-collapse: collapse;
   width: 100%;
 }
-
 #data-table th,
 #data-table td {
   padding: px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
-
 #data-table th {
   background-color: #f2f2f2;
 }
-
 #data-table tr:hover {
   background-color: #f5f5f5;
 }
 
 /* Chart Styles */
 .chart-container {
-  width: 80%;
-  height: 600px;
-  border: 2px solid #ddd;
+  width: 60%;
+  height: 500px;
+  border: 1px solid #ddd;
   border-radius: 1px;
   margin-top: 25px;
 }
 
-  
+/* topExpensesTable */
+#data-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+#topExpensesTable th,
+#topExpensesTable td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+#topExpensesTable th {
+  background-color: #f2f2f2;
+}
+#topExpensesTable tr:hover {
+  background-color: #f5f5f5;
+} 
   
   
