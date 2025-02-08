@@ -10,7 +10,7 @@
 
 </head>
 <body>
-  <h1>Shakepay Spending</h1>
+  <h1 style="text-align: center;">Shakepay Spending</h1>
 
   <div class="container">
     <div class="column">
@@ -25,45 +25,21 @@
       <div class="input-group">
         <button id="generate-chart-btn">Generate Chart</button>
       </div>
-
-      <h2>Filtered Data</h2>
-      <table id="data-table" class="styled-table"></table>
-    </div>
-    <div class="column">
-      <h2>Top 10 Expenses Table</h2>
-      <table id="topExpensesTable" class="styled-table"></table>
-    </div>
-  </div>
-  <style>
-    .container {
-      display: flex;
-      flex-direction: column;
-      padding: 20px;
-    }
-    .column {
-      margin: 0 10px;
-    }
-    .input-group {
-      margin-bottom: 15px;
-    }
-    .input-group label {
-      margin-right: 10px;
-    }
-    .styled-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .styled-table th, .styled-table td {
-      padding: 10px;
-      border: 1px solid #ddd;
-    }
-    .styled-table th {
-      background-color: #f2f2f2;
-    }
-  </style>
-
-
-
+  
+      <div class="row">
+        <div class="column">
+          <h2>Filtered Data</h2>
+          <table id="data-table" class="styled-table"></table>
+        </div>
+        <div class="column">
+          <h2>Top 10 Expenses Table</h2>
+          <table id="topExpensesTable" class="styled-table"></table>
+        </div>
+      </div>
+      
+      
+  <link rel="stylesheet" href="style.css">
+  
 </body>
 
 </html>
