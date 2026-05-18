@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Credit Card Spending Tracker</title>
     
-    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0"></script>
     
-    <!-- Deferred Logic -->
     <script src="logic/expenses_type.js" defer></script>
     <script src="logic/top10_table.js" defer></script>
+    <script src="logic/type.js" defer></script>
 
     <style>
         :root {
@@ -34,7 +33,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px; /* Widened to fit three columns nicely */
             margin: 0 auto;
         }
 
@@ -107,10 +106,10 @@
             transform: translateY(-2px);
         }
 
-        /* --- Grid Layout --- */
+        /* --- Updated Grid Layout for 3 Columns --- */
         .data-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
 
@@ -122,12 +121,29 @@
             overflow: hidden;
         }
 
+        .column-header-row {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 1px solid var(--border); 
+            padding-bottom: 15px;
+        }
+
         h2 {
             font-size: 1.1rem;
-            margin-top: 0;
+            margin: 0;
             color: var(--text-dim);
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 15px;
+        }
+
+        .copy-btn {
+            padding: 6px 12px; 
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border);
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
         }
 
         /* --- Styled Tables --- */
@@ -161,7 +177,7 @@
         }
 
         /* Responsive Fix */
-        @media (max-width: 850px) {
+        @media (max-width: 1100px) {
             .data-grid { grid-template-columns: 1fr; }
             .controls-card { flex-direction: column; align-items: stretch; }
         }
@@ -192,25 +208,70 @@
 
             <section class="data-grid">
                 <div class="data-column">
-                    <h2>Filtered Transactions</h2>
+                    <div class="column-header-row">
+                        <h2>Filtered Transactions</h2>
+                        <button class="primary-btn copy-btn" onclick="copyTableToClipboard('data-table', this)">Copy Table</button>
+                    </div>
                     <div class="table-wrapper">
-                        <table id="data-table" class="styled-table">
-                            <!-- JS content here -->
-                        </table>
+                        <table id="data-table" class="styled-table"></table>
                     </div>
                 </div>
 
                 <div class="data-column">
-                    <h2>Top 10 Expenses</h2>
+                    <div class="column-header-row">
+                        <h2>Top 10 Expenses</h2>
+                        <button class="primary-btn copy-btn" onclick="copyTableToClipboard('topExpensesTable', this)">Copy Table</button>
+                    </div>
                     <div class="table-wrapper">
-                        <table id="topExpensesTable" class="styled-table">
-                            <!-- JS content here -->
-                        </table>
+                        <table id="topExpensesTable" class="styled-table"></table>
+                    </div>
+                </div>
+
+                <div class="data-column">
+                    <div class="column-header-row">
+                        <h2>Expense Breakdown</h2>
+                        <button class="primary-btn copy-btn" onclick="copyTableToClipboard('expenseTypeTable', this)">Copy Table</button>
+                    </div>
+                    <div class="table-wrapper">
+                        <table id="expenseTypeTable" class="styled-table"></table>
                     </div>
                 </div>
             </section>
         </main>
     </div>
 
+    <script>
+        function copyTableToClipboard(tableId, buttonElement) {
+            var table = document.getElementById(tableId);
+            if (!table || table.rows.length === 0) {
+                alert("Please click 'Generate Analysis' to load data before copying.");
+                return;
+            }
+
+            var rows = Array.from(table.rows);
+            var textToCopy = rows.map(function(row) {
+                var cells = Array.from(row.cells);
+                return cells.map(function(cell) {
+                    // Strips the $ layout symbol so it pastes cleanly into Sheets numeric parsing fields
+                    return cell.textContent.trim().replace('$', '');
+                }).join('\t'); // Tab character facilitates instant grid alignment in Google Sheets
+            }).join('\n');
+
+            navigator.clipboard.writeText(textToCopy).then(function() {
+                var originalText = buttonElement.textContent;
+                buttonElement.textContent = "Copied!";
+                buttonElement.style.background = "#10b981"; // Temporary Green success state
+                buttonElement.style.borderColor = "#10b981";
+                
+                setTimeout(function() {
+                    buttonElement.textContent = originalText;
+                    buttonElement.style.background = ""; // Returns back to standard CSS configurations
+                    buttonElement.style.borderColor = "";
+                }, 1200);
+            }).catch(function(err) {
+                console.error("Clipboard operational execution failure: ", err);
+            });
+        }
+    </script>
 </body>
 </html>
