@@ -77,9 +77,7 @@ document.addEventListener("DOMContentLoaded", function() {
         table.innerHTML = ""; // Clear previous data
 
         // Create table headers
-        var headers = Object.keys(filteredData[0]).filter(function(header) {
-          return header !== "Date"; // Exclude the "Date" column
-        });
+        var headers = Object.keys(filteredData[0]); 
         var headerRow = table.insertRow(0);
         for (var i = 0; i < headers.length; i++) {
           var headerCell = document.createElement("th");
